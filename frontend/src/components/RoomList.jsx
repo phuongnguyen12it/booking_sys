@@ -1,4 +1,5 @@
 import { useBooking } from '../context/useBooking'
+import { AuthPanel } from './AuthPanel'
 
 export function RoomList() {
   const { isLoadingRooms, rooms, selectedRoomId, setSelectedRoomId } = useBooking()
@@ -27,6 +28,8 @@ export function RoomList() {
           ))}
         </div>
       )}
+
+      <AuthPanel />
     </aside>
   )
 }

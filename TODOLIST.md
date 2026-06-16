@@ -24,7 +24,7 @@
 - [x] Ensure `start_time` is before `end_time`.
 - [x] Add service and repository layers for booking logic.
 - [x] Add tests for API behavior and booking validation.
-- [ ] Optional bonus: add Sanctum token authentication.
+- [x] Optional bonus: add Sanctum token authentication.
 
 ## 3. Frontend
 

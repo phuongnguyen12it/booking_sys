@@ -16,6 +16,7 @@ Mini booking management system for a co-working space. Users can view rooms and 
 - Create a booking with server-side and client-side validation.
 - Delete a booking.
 - Prevent overlapping bookings for the same room.
+- Protect booking create/delete actions with Sanctum API tokens.
 - Service and repository layers for booking logic.
 - Laravel Resources and Form Requests.
 - React Context for shared frontend state.
@@ -76,13 +77,31 @@ Backend:  http://localhost:8000
 
 The frontend container installs Node dependencies automatically when `node_modules` is missing.
 
+Seeded admin credentials:
+
+```text
+Email:    test@example.com
+Password: password
+```
+
 ## API Endpoints
 
 ```text
 GET    /api/rooms
 GET    /api/rooms/{id}/bookings
+POST   /api/auth/token
+DELETE /api/auth/token
 POST   /api/bookings
 DELETE /api/bookings/{id}
+```
+
+Create token payload:
+
+```json
+{
+  "email": "test@example.com",
+  "password": "password"
+}
 ```
 
 Create booking payload:
@@ -94,6 +113,12 @@ Create booking payload:
   "start_time": "2026-06-20 09:00:00",
   "end_time": "2026-06-20 10:00:00"
 }
+```
+
+Protected endpoints require:
+
+```http
+Authorization: Bearer <token>
 ```
 
 ## Running Tests
@@ -120,7 +145,7 @@ docker compose run --rm frontend npm run build
 
 - PostgreSQL was selected because it is strict, stable in Docker, and well suited for time-based booking data.
 - The backend keeps overlap detection in `BookingService` and `BookingRepository` so controllers remain thin.
-- `POST /api/bookings` and `DELETE /api/bookings/{id}` are currently public to keep the coding task focused; Sanctum token auth is left as an optional extension.
+- `GET` endpoints are public, while `POST /api/bookings` and `DELETE /api/bookings/{id}` require a Sanctum Bearer token.
 - The frontend uses React Context for rooms/bookings state and React Hook Form for ergonomic form validation.
 - Apache is used in the backend container instead of `php artisan serve` to make the Docker setup closer to a real web server environment.
 
