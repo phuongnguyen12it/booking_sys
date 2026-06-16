@@ -28,16 +28,16 @@
 
 ## 3. Frontend
 
-- [ ] Create React project in `frontend`.
-- [ ] Configure API client with Axios or Fetch API.
-- [ ] Build room list panel.
-- [ ] Load bookings when a room is selected.
-- [ ] Build booking creation form with:
-  - [ ] User name
-  - [ ] Start time
-  - [ ] End time
-- [ ] Add client-side validation.
-- [ ] Add booking delete action.
-- [ ] Optional bonus: use React Context for shared booking state.
-- [ ] Optional bonus: use React Hook Form for form handling.
-- [ ] Add README instructions for running and design decisions.
+- [x] Create React project in `frontend`.
+- [x] Configure API client with Axios or Fetch API.
+- [x] Build room list panel.
+- [x] Load bookings when a room is selected.
+- [x] Build booking creation form with:
+  - [x] User name
+  - [x] Start time
+  - [x] End time
+- [x] Add client-side validation.
+- [x] Add booking delete action.
+- [x] Optional bonus: use React Context for shared booking state.
+- [x] Optional bonus: use React Hook Form for form handling.
+- [x] Add README instructions for running and design decisions.
