@@ -19,30 +19,42 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => 'password',
-        ]);
+        User::query()->updateOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'name' => 'Test User',
+                'password' => 'password',
+            ],
+        );
 
         $rooms = collect([
             ['name' => 'Focus Room', 'capacity' => 4],
             ['name' => 'Ocean Meeting Room', 'capacity' => 8],
             ['name' => 'Creative Studio', 'capacity' => 12],
-        ])->map(fn (array $room) => Room::query()->create($room));
+        ])->map(fn (array $room) => Room::query()->updateOrCreate(
+            ['name' => $room['name']],
+            ['capacity' => $room['capacity']],
+        ));
 
-        Booking::query()->create([
-            'room_id' => $rooms[0]->id,
-            'user_name' => 'Alice Nguyen',
-            'start_time' => now()->addDay()->setTime(9, 0),
-            'end_time' => now()->addDay()->setTime(10, 0),
-        ]);
+        $focusStartTime = now()->addDay()->setTime(9, 0);
+        $oceanStartTime = now()->addDay()->setTime(13, 0);
 
-        Booking::query()->create([
-            'room_id' => $rooms[1]->id,
-            'user_name' => 'Minh Tran',
-            'start_time' => now()->addDay()->setTime(13, 0),
-            'end_time' => now()->addDay()->setTime(14, 30),
-        ]);
+        Booking::query()->updateOrCreate(
+            [
+                'room_id' => $rooms[0]->id,
+                'user_name' => 'Alice Nguyen',
+                'start_time' => $focusStartTime,
+            ],
+            ['end_time' => $focusStartTime->copy()->setTime(10, 0)],
+        );
+
+        Booking::query()->updateOrCreate(
+            [
+                'room_id' => $rooms[1]->id,
+                'user_name' => 'Minh Tran',
+                'start_time' => $oceanStartTime,
+            ],
+            ['end_time' => $oceanStartTime->copy()->setTime(14, 30)],
+        );
     }
 }
